@@ -11,15 +11,22 @@ gulp.task('bundle', () => {
 	.transform('babelify', {presets: ['es2015', 'react']})
 	.bundle()
 	.pipe(source('bundle.js'))
-	.pipe(gulp.dest('dist'));
+	.pipe(gulp.dest('dist'))
+	.pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('index', () => {
 	return gulp.src('./src/index.html')
-	.pipe(gulp.dest('dist'));
+	.pipe(gulp.dest('dist'))
+	.pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('default', ['bundle', 'index'], () => {
+gulp.task('watch', () => {
+	gulp.watch('./src/**/*.js', ['bundle']);
+	gulp.watch('./src/index.html', ['index']);
+});
+
+gulp.task('default', ['bundle', 'index', 'watch'], () => {
 	return browserSync.init({
 		server: {
 			baseDir: './dist'
