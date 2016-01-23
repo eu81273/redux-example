@@ -1,36 +1,43 @@
 import { combineReducers } from 'redux';
 import { actionTypes, filterTypes } from './actions';
 
-let defaultState = {
-	filter: filterTypes.SHOW_ALL,
-	todos: []
-};
-
-//리듀서는 이전 state와 action을 받아 '새로운' state를 제공하는 순수함수다.
-export default function todoApp (state = defaultState, action) {
+function todosReducer (previousTodos = [], action) {
 	switch (action.type) {
 		case actionTypes.ADD_TODO:
-			return Object.assign({}, state, {
-				todos: [...state.todos, {
+			return [...previousTodos, {
 					text: action.text,
 					completed: false
-				}]
-			});
-
+				}];
 		case actionTypes.COMPLETE_TODO:
-			return Object.assign({}, state, {
-				todos: [...state.todos.slice(0, action.index), {
-					text: state.todos[action.index].text,
-					completed: !state.todos[action.index].completed
-				}, ...state.todos.slice(action.index + 1)]
+			return previousTodos.map((todo, index) => {
+				if (action.index === index) {
+					return {
+						text: todo.text,
+						completed: !todo.completed
+					};
+				}
+				else {
+					return todo;
+				}
 			});
-
-		case actionTypes.SET_VISIBILITY_FILTER:
-			return Object.assign({}, state, {
-				filter: action.filter
-			});
-
 		default:
-			return state;
+			return previousTodos;
+	}
+}
+
+function filterReducer (previousFilter = filterTypes.SHOW_ALL, action) {
+	switch (action.type) {
+		case actionTypes.SET_VISIBILITY_FILTER:
+			return action.filter;
+		default:
+			return previousFilter;
+	}
+}
+
+//리듀서는 이전 state와 action을 받아 '새로운' state를 제공하는 순수함수다.
+export default function todoApp (previousState = {}, action) {
+	return {
+		filter: filterReducer(previousState.filter, action),
+		todos: todosReducer(previousState.todos, action)
 	}
 };
