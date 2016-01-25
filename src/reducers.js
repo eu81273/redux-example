@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import { actionTypes, filterTypes } from './actions';
 
 function todosReducer (previousTodos = [], action) {
