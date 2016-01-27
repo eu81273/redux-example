@@ -7,6 +7,7 @@ function todosReducer (previousTodos = [], action) {
 					text: action.text,
 					completed: false
 				}];
+
 		case actionTypes.COMPLETE_TODO:
 			return previousTodos.map((todo, index) => {
 				if (action.index === index) {
@@ -19,6 +20,7 @@ function todosReducer (previousTodos = [], action) {
 					return todo;
 				}
 			});
+
 		default:
 			return previousTodos;
 	}

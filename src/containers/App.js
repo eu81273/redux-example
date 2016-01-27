@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 class App extends Component {
 	render () {
 		//redux로부터 주입받는 속성
-		const { dispatch, todos, filter} = this.props;
+		const { dispatch, todos, filter } = this.props;
 
 		return (
 			<div>
