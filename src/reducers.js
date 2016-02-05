@@ -1,14 +1,14 @@
-import { actionTypes, filterTypes } from './actions';
+import * as types from './types';
 
 function todosReducer (previousTodos = [], action) {
 	switch (action.type) {
-		case actionTypes.ADD_TODO:
+		case types.action.ADD_TODO:
 			return [...previousTodos, {
 					text: action.text,
 					completed: false
 				}];
 
-		case actionTypes.COMPLETE_TODO:
+		case types.action.COMPLETE_TODO:
 			return previousTodos.map((todo, index) => {
 				if (action.index === index) {
 					return {
@@ -26,9 +26,9 @@ function todosReducer (previousTodos = [], action) {
 	}
 }
 
-function filterReducer (previousFilter = filterTypes.SHOW_ALL, action) {
+function filterReducer (previousFilter = types.filter.SHOW_ALL, action) {
 	switch (action.type) {
-		case actionTypes.SET_VISIBILITY_FILTER:
+		case types.action.SET_VISIBILITY_FILTER:
 			return action.filter;
 		default:
 			return previousFilter;

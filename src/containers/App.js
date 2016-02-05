@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { actionTypes, filterTypes, addTodo, completeTodo, setFilter } from '../actions';
+import * as actionCreator from '../actionCreator';
 import AddTodo from '../components/AddTodo';
 import TodoList from '../components/TodoList';
 import Footer from '../components/Footer';
 
-class App extends Component {
+export default class App extends Component {
 	render () {
 		//redux로부터 주입받는 속성
 		const { dispatch, todos, filter } = this.props;
@@ -13,17 +12,17 @@ class App extends Component {
 		return (
 			<div>
 				<AddTodo
-					onAddClick={text => dispatch(addTodo(text))}
+					onAddClick={text => dispatch(actionCreator.addTodo(text))}
 				/>
 
 				<TodoList
 					todos={todos}
-					onTodoClick={index => dispatch(completeTodo(index))}
+					onTodoClick={index => dispatch(actionCreator.completeTodo(index))}
 				/>
 
 				<Footer
 					filter={filter}
-					onFilterChange={selectedFilter => dispatch(setFilter(selectedFilter))}
+					onFilterChange={selectedFilter => dispatch(actionCreator.setFilter(selectedFilter))}
 				/>
 			</div>
 		);
@@ -41,27 +40,3 @@ App.propTypes = {
 		'SHOW_ACTIVE'
 	]).isRequired
 };
-
-
-function filterTodos (todos, filter) {
-	switch (filter) {
-		case filterTypes.SHOW_ALL:
-			return todos;
-
-		case filterTypes.SHOW_ACTIVE:
-			return todos.filter(todo => !todo.completed);
-
-		case filterTypes.SHOW_COMPLETED:
-			return todos.filter(todo => todo.completed);
-	}
-}
-
-function stateSelector (state) {
-	return {
-		todos: filterTodos(state.todos, state.filter),
-		filter: state.filter
-	};
-};
-
-//상태를 주입하려는 컴포넌트를 connect 로 감싸준다.
-export default connect(stateSelector)(App);
