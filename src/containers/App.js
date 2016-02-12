@@ -12,16 +12,21 @@ export default class App extends Component {
 		return (
 			<div>
 				<AddTodo
+					//자식 요소에 핸들러 전달
 					onAddClick={text => dispatch(actionCreator.addTodo(text))}
 				/>
 
 				<TodoList
+					//자식 요소에 todos 배열 전달
 					todos={todos}
+					//자식 요소에 핸들러 전달
 					onTodoClick={index => dispatch(actionCreator.completeTodo(index))}
 				/>
 
 				<Footer
+					//자식 요소에 filter 전달
 					filter={filter}
+					//자식 요소에 핸들러 전달
 					onFilterChange={selectedFilter => dispatch(actionCreator.setFilter(selectedFilter))}
 				/>
 			</div>
@@ -29,6 +34,7 @@ export default class App extends Component {
 	}
 };
 
+/*
 App.propTypes = {
 	todos: PropTypes.arrayOf(PropTypes.shape({
 		text: PropTypes.string.isRequired,
@@ -40,3 +46,4 @@ App.propTypes = {
 		'SHOW_ACTIVE'
 	]).isRequired
 };
+*/

@@ -36,8 +36,8 @@ function render (state) {
 	);
 }
 
-//값이 변경되면 다시 그리기
+//값이 변경되면 다시 그리기  -> subscribe 는 콜백에 아무런 값도 넘겨주지 않는다.
 store.subscribe(() => render(stateSelector(store.getState())));
 
-//화면에 그리기
+//처음 시작할 때 화면에 그리기
 render(stateSelector(store.getState()));

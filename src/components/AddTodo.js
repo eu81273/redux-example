@@ -18,6 +18,8 @@ export default class AddTodo extends Component {
 	}
 };
 
+/*
 AddTodo.propTypes = {
 	onAddClick: PropTypes.func.isRequired
 };
+*/

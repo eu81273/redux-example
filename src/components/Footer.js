@@ -30,9 +30,11 @@ export default class Footer extends Component {
 	}
 };
 
+/*
 Footer.propTypes = {
 	onFilterChange: PropTypes.func.isRequired,
 	filter: PropTypes.oneOf([
 		'SHOW_ALL', 'SHOW_COMPLETED', 'SHOW_ACTIVE'
 	]).isRequired
 };
+*/
